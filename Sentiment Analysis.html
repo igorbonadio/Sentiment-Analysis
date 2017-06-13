@@ -12314,22 +12314,18 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">vocabulary_to_index</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">):</span>
-    <span class="n">feature2index</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">):</span>
-        <span class="n">feature2index</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
-    <span class="k">return</span> <span class="n">feature2index</span>
-
-<span class="k">def</span> <span class="nf">build_vocabulary</span><span class="p">(</span><span class="n">reviews</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">build_vocabulary</span><span class="p">(</span><span class="n">reviews</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">reviews</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">extract_features</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
             <span class="n">counter</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">vocabulary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">vocabulary</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">feature2index</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">counter</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">:</span>
-            <span class="n">vocabulary</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">vocabulary</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">vocabulary_to_index</span><span class="p">(</span><span class="n">vocabulary</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+            <span class="n">vocabulary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">feature2index</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">vocabulary</span><span class="p">,</span> <span class="n">feature2index</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12532,123 +12528,123 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fold 1/5
 Epoch 1/10
-8528/8528 [==============================] - 1s - loss: 0.6576 - acc: 0.6038     
+8528/8528 [==============================] - 0s - loss: 0.6570 - acc: 0.6136     
 Epoch 2/10
-8528/8528 [==============================] - 0s - loss: 0.5416 - acc: 0.7417     
+8528/8528 [==============================] - 0s - loss: 0.5514 - acc: 0.7462     
 Epoch 3/10
-8528/8528 [==============================] - 0s - loss: 0.4700 - acc: 0.7859     
+8528/8528 [==============================] - 0s - loss: 0.4781 - acc: 0.7913     
 Epoch 4/10
-8528/8528 [==============================] - 0s - loss: 0.4216 - acc: 0.8153     
+8528/8528 [==============================] - 0s - loss: 0.4276 - acc: 0.8168     
 Epoch 5/10
-8528/8528 [==============================] - 0s - loss: 0.3892 - acc: 0.8324     
+8528/8528 [==============================] - 0s - loss: 0.3879 - acc: 0.8340     
 Epoch 6/10
-8528/8528 [==============================] - 0s - loss: 0.3626 - acc: 0.8521     
+8528/8528 [==============================] - 0s - loss: 0.3576 - acc: 0.8494     
 Epoch 7/10
-8528/8528 [==============================] - 0s - loss: 0.3376 - acc: 0.8601     
+8528/8528 [==============================] - 0s - loss: 0.3286 - acc: 0.8644     
 Epoch 8/10
-8528/8528 [==============================] - 0s - loss: 0.3144 - acc: 0.8725     
+8528/8528 [==============================] - 0s - loss: 0.3015 - acc: 0.8790     
 Epoch 9/10
-8528/8528 [==============================] - 0s - loss: 0.2915 - acc: 0.8857     
+8528/8528 [==============================] - 0s - loss: 0.2770 - acc: 0.8891     
 Epoch 10/10
-8528/8528 [==============================] - 0s - loss: 0.2727 - acc: 0.8918     
+8528/8528 [==============================] - 0s - loss: 0.2556 - acc: 0.8985     
 Evaluating:
-1792/2134 [========================&gt;.....] - ETA: 0s - loss: 0.5909853301656056 - acc: 0.7389878165308515
+1600/2134 [=====================&gt;........] - ETA: 0s - loss: 0.6573731008822826 - acc: 0.7141518276097513
 ******************************************************************
 Fold 2/5
 Epoch 1/10
-8530/8530 [==============================] - 1s - loss: 0.6839 - acc: 0.5885     
+8530/8530 [==============================] - 0s - loss: 0.6663 - acc: 0.6040     
 Epoch 2/10
-8530/8530 [==============================] - 0s - loss: 0.5668 - acc: 0.7381     
+8530/8530 [==============================] - 0s - loss: 0.5672 - acc: 0.7340     
 Epoch 3/10
-8530/8530 [==============================] - 0s - loss: 0.4853 - acc: 0.7845     
+8530/8530 [==============================] - 0s - loss: 0.4877 - acc: 0.7821     
 Epoch 4/10
-8530/8530 [==============================] - 0s - loss: 0.4332 - acc: 0.8115     
+8530/8530 [==============================] - 0s - loss: 0.4349 - acc: 0.8095     
 Epoch 5/10
-8530/8530 [==============================] - 0s - loss: 0.3935 - acc: 0.8321     
+8530/8530 [==============================] - 0s - loss: 0.3961 - acc: 0.8245     
 Epoch 6/10
-8530/8530 [==============================] - 0s - loss: 0.3581 - acc: 0.8478     
+8530/8530 [==============================] - 0s - loss: 0.3629 - acc: 0.8426     
 Epoch 7/10
-8530/8530 [==============================] - 0s - loss: 0.3267 - acc: 0.8634     
+8530/8530 [==============================] - 0s - loss: 0.3269 - acc: 0.8626     
 Epoch 8/10
-8530/8530 [==============================] - 0s - loss: 0.2952 - acc: 0.8805     
+8530/8530 [==============================] - 0s - loss: 0.2954 - acc: 0.8785     
 Epoch 9/10
-8530/8530 [==============================] - 0s - loss: 0.2659 - acc: 0.8979     
+8530/8530 [==============================] - 0s - loss: 0.2627 - acc: 0.8986     
 Epoch 10/10
-8530/8530 [==============================] - 0s - loss: 0.2381 - acc: 0.9132     
+8530/8530 [==============================] - 0s - loss: 0.2331 - acc: 0.9154     
 Evaluating:
-1600/2132 [=====================&gt;........] - ETA: 0s - loss: 0.640493330320319 - acc: 0.7209193245778611
+1952/2132 [==========================&gt;...] - ETA: 0s - loss: 0.614179367475617 - acc: 0.7401500936968018
 ******************************************************************
 Fold 3/5
 Epoch 1/10
-8530/8530 [==============================] - 1s - loss: 0.6447 - acc: 0.6333     
+8530/8530 [==============================] - 1s - loss: 0.6684 - acc: 0.6057     
 Epoch 2/10
-8530/8530 [==============================] - 0s - loss: 0.5392 - acc: 0.7538     
+8530/8530 [==============================] - 0s - loss: 0.5616 - acc: 0.7343     
 Epoch 3/10
-8530/8530 [==============================] - 0s - loss: 0.4782 - acc: 0.7868     
+8530/8530 [==============================] - 0s - loss: 0.4845 - acc: 0.7860     
 Epoch 4/10
-8530/8530 [==============================] - 0s - loss: 0.4347 - acc: 0.8081     
+8530/8530 [==============================] - 0s - loss: 0.4316 - acc: 0.8116     
 Epoch 5/10
-8530/8530 [==============================] - 0s - loss: 0.4032 - acc: 0.8246     
+8530/8530 [==============================] - 0s - loss: 0.3945 - acc: 0.8284     
 Epoch 6/10
-8530/8530 [==============================] - 0s - loss: 0.3738 - acc: 0.8380     
+8530/8530 [==============================] - 0s - loss: 0.3644 - acc: 0.8414     
 Epoch 7/10
-8530/8530 [==============================] - 0s - loss: 0.3443 - acc: 0.8539     
+8530/8530 [==============================] - 0s - loss: 0.3373 - acc: 0.8572     
 Epoch 8/10
-8530/8530 [==============================] - 0s - loss: 0.3175 - acc: 0.8660     
+8530/8530 [==============================] - 0s - loss: 0.3139 - acc: 0.8720     
 Epoch 9/10
-8530/8530 [==============================] - 0s - loss: 0.2886 - acc: 0.8829     
+8530/8530 [==============================] - 0s - loss: 0.2891 - acc: 0.8816     
 Epoch 10/10
-8530/8530 [==============================] - 0s - loss: 0.2643 - acc: 0.8939     
+8530/8530 [==============================] - 0s - loss: 0.2652 - acc: 0.9000     
 Evaluating:
-1888/2132 [=========================&gt;....] - ETA: 0s - loss: 0.5946929517427484 - acc: 0.7349906192487892
+1600/2132 [=====================&gt;........] - ETA: 0s - loss: 0.5968277338074475 - acc: 0.7321763601133121
 ******************************************************************
 Fold 4/5
 Epoch 1/10
-8530/8530 [==============================] - 1s - loss: 0.6488 - acc: 0.6335     
+8530/8530 [==============================] - 0s - loss: 0.6674 - acc: 0.5992     
 Epoch 2/10
-8530/8530 [==============================] - 0s - loss: 0.5483 - acc: 0.7479     
+8530/8530 [==============================] - 0s - loss: 0.5549 - acc: 0.7394     
 Epoch 3/10
-8530/8530 [==============================] - 0s - loss: 0.4815 - acc: 0.7855     
+8530/8530 [==============================] - 0s - loss: 0.4757 - acc: 0.7844     
 Epoch 4/10
-8530/8530 [==============================] - 0s - loss: 0.4352 - acc: 0.8096     
+8530/8530 [==============================] - 0s - loss: 0.4270 - acc: 0.8138     
 Epoch 5/10
-8530/8530 [==============================] - 0s - loss: 0.3963 - acc: 0.8302     
+8530/8530 [==============================] - 0s - loss: 0.3920 - acc: 0.8273     
 Epoch 6/10
-8530/8530 [==============================] - 0s - loss: 0.3639 - acc: 0.8438     
+8530/8530 [==============================] - 0s - loss: 0.3611 - acc: 0.8450     
 Epoch 7/10
-8530/8530 [==============================] - 0s - loss: 0.3310 - acc: 0.8599     
+8530/8530 [==============================] - 0s - loss: 0.3344 - acc: 0.8596     
 Epoch 8/10
-8530/8530 [==============================] - 0s - loss: 0.3007 - acc: 0.8749     - ETA: 0s - loss: 0.2877 
+8530/8530 [==============================] - 0s - loss: 0.3073 - acc: 0.8726     
 Epoch 9/10
-8530/8530 [==============================] - 0s - loss: 0.2713 - acc: 0.8925     
+8530/8530 [==============================] - 0s - loss: 0.2846 - acc: 0.8858     
 Epoch 10/10
-8530/8530 [==============================] - 0s - loss: 0.2446 - acc: 0.9070     
+8530/8530 [==============================] - 0s - loss: 0.2623 - acc: 0.8973     
 Evaluating:
-1856/2132 [=========================&gt;....] - ETA: 0s - loss: 0.6233098613164662 - acc: 0.7190431520818098
+1824/2132 [========================&gt;.....] - ETA: 0s - loss: 0.6212490430245032 - acc: 0.733114446584995
 ******************************************************************
 Fold 5/5
 Epoch 1/10
-8530/8530 [==============================] - 1s - loss: 0.6552 - acc: 0.6134     
+8530/8530 [==============================] - 1s - loss: 0.6659 - acc: 0.6076     
 Epoch 2/10
-8530/8530 [==============================] - 0s - loss: 0.5410 - acc: 0.7475     
+8530/8530 [==============================] - 0s - loss: 0.5511 - acc: 0.7424     
 Epoch 3/10
-8530/8530 [==============================] - 0s - loss: 0.4661 - acc: 0.7923     
+8530/8530 [==============================] - 0s - loss: 0.4762 - acc: 0.7870     
 Epoch 4/10
-8530/8530 [==============================] - 0s - loss: 0.4183 - acc: 0.8134     
+8530/8530 [==============================] - 0s - loss: 0.4275 - acc: 0.8108     
 Epoch 5/10
-8530/8530 [==============================] - 0s - loss: 0.3839 - acc: 0.8285     
+8530/8530 [==============================] - 0s - loss: 0.3910 - acc: 0.8273     
 Epoch 6/10
-8530/8530 [==============================] - 0s - loss: 0.3531 - acc: 0.8461     
+8530/8530 [==============================] - 0s - loss: 0.3593 - acc: 0.8441     
 Epoch 7/10
-8530/8530 [==============================] - 0s - loss: 0.3251 - acc: 0.8583     
+8530/8530 [==============================] - 0s - loss: 0.3297 - acc: 0.8601     
 Epoch 8/10
-8530/8530 [==============================] - 0s - loss: 0.2956 - acc: 0.8760     
+8530/8530 [==============================] - 0s - loss: 0.2966 - acc: 0.8771     - ETA: 0s - loss: 0.3033 - acc
 Epoch 9/10
-8530/8530 [==============================] - 0s - loss: 0.2714 - acc: 0.8875     
+8530/8530 [==============================] - 0s - loss: 0.2701 - acc: 0.8959     
 Epoch 10/10
-8530/8530 [==============================] - 0s - loss: 0.2456 - acc: 0.9047     
+8530/8530 [==============================] - 0s - loss: 0.2445 - acc: 0.9077     
 Evaluating:
-1824/2132 [========================&gt;.....] - ETA: 0s - loss: 0.6207796188724869 - acc: 0.7284240151212095
+1632/2132 [=====================&gt;........] - ETA: 0s - loss: 0.6130071632969446 - acc: 0.7317073169613422
 ******************************************************************
 </pre>
 </div>
@@ -12680,7 +12676,7 @@ Evaluating:
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Acurácia média 0.7284729855121042 +/- 0.007733345602133371
+<pre>Acurácia média 0.7302600089932405 +/- 0.008616289211280678
 </pre>
 </div>
 </div>
